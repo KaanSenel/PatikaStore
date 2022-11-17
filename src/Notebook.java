@@ -82,7 +82,11 @@ public class Notebook extends Product{
         getProducts();
         System.out.print("Silinmesini istediğiniz notebook'un Id numarasını giriniz : ");
         int id=scanner.nextInt();
-        notebooks.remove(id-1);
+        Optional<Notebook> stuff = notebooks.stream()
+                .filter(x->x.getId()==id)
+                .findFirst();
+        System.out.println("Siliniyor...\nid: "+id);
+        stuff.ifPresent(notebook->notebooks.remove(notebook));
         System.out.println("Güncel notebook listesi ");
         getProducts();
     }

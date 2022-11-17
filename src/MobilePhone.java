@@ -90,7 +90,11 @@ public class MobilePhone extends Product{
         getProducts();
         System.out.print("Silinmesini istediğiniz telefonun Id numarasını giriniz : ");
         int id=scanner.nextInt();
-        phones.remove(id-1);
+         Optional<MobilePhone> stuff = phones.stream()
+                .filter(x->x.getId()==id)
+                .findFirst();
+        System.out.println("Siliniyor...\nid : "+id);
+        stuff.ifPresent(phone->phones.remove(phone));  
         System.out.println("Güncel telefon listesi ");
         getProducts();
     }
